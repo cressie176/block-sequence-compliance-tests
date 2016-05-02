@@ -1,0 +1,20 @@
+{
+  "name": "block-sequence-compliance-tests",
+  "version": "0.1.0",
+  "description": "Complicance tests for block-sequence implementations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo require this tests from block-sequence implementations"
+  },
+  "keywords": [
+    "Block",
+    "Sequence",
+    "Compliance",
+    "Tests"
+  ],
+  "author": "GuideSmiths",
+  "license": "ISC",
+  "devDependencies": {
+    "tape": "^4.5.1"
+  }
+}
