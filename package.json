@@ -4,7 +4,9 @@
   "description": "Complicance tests for block-sequence implementations",
   "main": "index.js",
   "scripts": {
-    "test": "echo require this tests from block-sequence implementations"
+    "test": "echo require this tests from block-sequence implementations",
+    "lint": "eslint .",
+    "prepush": "npm run lint"
   },
   "keywords": [
     "Block",
@@ -15,6 +17,10 @@
   "author": "GuideSmiths",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^0.24.1",
+    "eslint-config-imperative": "0.0.6",
+    "eslint-plugin-imperative": "0.0.2",
+    "husky": "^0.11.4",
     "tape": "^4.5.1"
   }
 }

@@ -47,6 +47,7 @@ module.exports = function(blockSequence) {
                 blockSequence.allocate({ name: sequenceName, size: 10 }, function(err, block) {
                     err && t.ifError(err)
                     blockSequence.allocate({ name: sequenceName, size: 10 }, function(err, block) {
+                        err && t.ifError(err)
                         t.equal(block.name, sequenceName, 'block name is correct')
                         t.equal(block.next, 11, 'next is correct')
                         t.equal(block.remaining, 10, 'remaining is correct')
@@ -133,6 +134,7 @@ module.exports = function(blockSequence) {
                 blockSequence.ensure({ name: sequenceName, value: 10 }, function(err, sequence) {
                     err && t.ifError(err)
                     blockSequence.ensure({ name: sequenceName, value: 1 }, function(err, sequence) {
+                        err && t.ifError(err)
                         t.equal(sequence.value, 10, 'value is correct')
                         t.end()
                     })
