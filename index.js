@@ -159,6 +159,22 @@ module.exports = function(blockSequence) {
             })
         })
 
+        t.test('should create sequences only once', function(t) {
+            blockSequence.remove({ name: sequenceName }, function(err) {
+                err && t.ifError(err)
+                var blocks = 0
+                for (var i = 0; i < 1000; i++) {
+                    blockSequence.ensure({ name: sequenceName, value: 100 }, function(err, block) {
+                        err && t.ifError(err)
+                        if (++blocks === 1000) {
+                            t.equal(block.value, 100, 'value is correct')
+                            t.end()
+                        }
+                    })
+                }
+            })
+        })
+
         t.test('should require sequence names when ensuring a sequence', function(t) {
             blockSequence.ensure({ name: null }, function(err, block) {
                 t.equal(err.message, 'name is required', 'message is correct')
