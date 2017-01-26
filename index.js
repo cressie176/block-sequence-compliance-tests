@@ -1,4 +1,5 @@
 var test = require('tape')
+var bigInt = require('big-integer')
 var sequenceName = 'block-sequence-compliance-tests'
 
 module.exports = function(blockSequence) {
@@ -28,6 +29,17 @@ module.exports = function(blockSequence) {
                 })
             })
         })
+
+        t.test('should error when sequence is too big', function(t) {
+            blockSequence.remove({ name: sequenceName }, function(err) {
+                err && t.ifError(err)
+                blockSequence.ensure({ name: sequenceName, value: bigInt(Number.MAX_SAFE_INTEGER).plus(1).toString() }, function(err, sequence) {
+                    t.equal(err.message, 'Sequence value exceeds Number.MAX_SAFE_INTEGER', 'message is correct')
+                    t.end()
+                })
+            })
+        })
+
 
         t.test('should allocate a block of ids', function(t) {
             blockSequence.remove({ name: sequenceName }, function(err) {
@@ -110,6 +122,19 @@ module.exports = function(blockSequence) {
                     err && t.ifError(err)
                     t.notOk(block.hasOwnProperty('value'), 'sequence value was not omitted')
                     t.end()
+                })
+            })
+        })
+
+        t.test('should error when block busts max safe integer', function(t) {
+            blockSequence.remove({ name: sequenceName }, function(err) {
+                err && t.ifError(err)
+                blockSequence.ensure({ name: sequenceName, value: 10 }, function(err, sequence) {
+                    err && t.ifError(err)
+                    blockSequence.allocate({ name: sequenceName, size: Number.MAX_SAFE_INTEGER - 9 }, function(err, block) {
+                        t.equal(err.message, 'Sequence value exceeds Number.MAX_SAFE_INTEGER', 'message is correct')
+                        t.end()
+                    })
                 })
             })
         })
