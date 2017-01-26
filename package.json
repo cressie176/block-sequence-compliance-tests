@@ -1,6 +1,6 @@
 {
   "name": "block-sequence-compliance-tests",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Complicance tests for block-sequence implementations",
   "main": "index.js",
   "scripts": {
